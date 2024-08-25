@@ -12,13 +12,7 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.19.2"
-  }
-}
-{
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
+    "express": "^4.19.2",
+    "serverless-http": "^3.2.0"
   }
 }
