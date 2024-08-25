@@ -1,0 +1,6 @@
+[build]
+  functions = "my-backend/functions"  # Directory for serverless functions
+  publish = "src/dist"                # Directory to publish the frontend
+
+[dev]
+  functions = "my-backend/functions"

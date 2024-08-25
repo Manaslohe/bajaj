@@ -15,7 +15,7 @@ function App() {
       const sanitizedInput = input.replace(/“|”/g, '"'); // Replace curly quotes with straight quotes
 
       const data = JSON.parse(sanitizedInput); // Parse the sanitized input as JSON
-      const res = await fetch('http://localhost:3000/bfhl', { // Local backend URL
+      const res = await fetch('https://21bbs0006.netlify.app/.netlify/functions/bfhl', { // Updated to Netlify backend URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

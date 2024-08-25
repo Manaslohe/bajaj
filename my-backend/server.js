@@ -1,27 +1,29 @@
+// functions/bfhl.js
 const express = require('express');
-const cors = require('cors'); 
+const cors = require('cors');
+const serverless = require('serverless-http');
+
 const app = express();
+const router = express.Router();
 
-app.use(cors()); 
-app.use(express.json()); 
-
+app.use(cors());
+app.use(express.json());
 
 const USER_ID = "john_doe_17091999";
 const EMAIL = "john@xyz.com";
 const ROLL_NUMBER = "ABCD123";
 
 // GET endpoint: /bfhl
-app.get('/bfhl', (req, res) => {
+router.get('/', (req, res) => {
     res.status(200).json({
         "operation_code": 1
     });
 });
 
 // POST endpoint: /bfhl
-app.post('/bfhl', (req, res) => {
+router.post('/', (req, res) => {
     try {
         const data = req.body.data || [];
-
 
         if (!Array.isArray(data)) {
             return res.status(400).json({
@@ -31,12 +33,11 @@ app.post('/bfhl', (req, res) => {
             });
         }
 
-        const numbers = data.filter(item => !isNaN(item)); 
-        const alphabets = data.filter(item => isNaN(item)); 
-        
+        const numbers = data.filter(item => !isNaN(item));
+        const alphabets = data.filter(item => isNaN(item));
 
         const lowercaseAlphabets = alphabets.filter(item => item === item.toLowerCase());
-        const highestLowercase = lowercaseAlphabets.length > 0 ? 
+        const highestLowercase = lowercaseAlphabets.length > 0 ?
                                  String.fromCharCode(Math.max(...lowercaseAlphabets.map(char => char.charCodeAt(0)))) :
                                  null;
 
@@ -60,8 +61,7 @@ app.post('/bfhl', (req, res) => {
     }
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Use the router
+app.use('/.netlify/functions/bfhl', router);
+
+module.exports.handler = serverless(app);
