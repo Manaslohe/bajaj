@@ -1,11 +1,11 @@
 const express = require('express');
-const cors = require('cors'); // Import CORS
+const cors = require('cors'); 
 const app = express();
 
-app.use(cors()); // Allow CORS for all origins
-app.use(express.json()); // Middleware to parse JSON requests
+app.use(cors()); 
+app.use(express.json()); 
 
-// User Details (replace with actual values)
+
 const USER_ID = "john_doe_17091999";
 const EMAIL = "john@xyz.com";
 const ROLL_NUMBER = "ABCD123";
@@ -22,7 +22,7 @@ app.post('/bfhl', (req, res) => {
     try {
         const data = req.body.data || [];
 
-        // Input validation: Check if data is an array
+
         if (!Array.isArray(data)) {
             return res.status(400).json({
                 "is_success": false,
@@ -31,10 +31,10 @@ app.post('/bfhl', (req, res) => {
             });
         }
 
-        const numbers = data.filter(item => !isNaN(item)); // Filter numbers
-        const alphabets = data.filter(item => isNaN(item)); // Filter alphabets
+        const numbers = data.filter(item => !isNaN(item)); 
+        const alphabets = data.filter(item => isNaN(item)); 
         
-        // Find the highest lowercase alphabet
+
         const lowercaseAlphabets = alphabets.filter(item => item === item.toLowerCase());
         const highestLowercase = lowercaseAlphabets.length > 0 ? 
                                  String.fromCharCode(Math.max(...lowercaseAlphabets.map(char => char.charCodeAt(0)))) :
